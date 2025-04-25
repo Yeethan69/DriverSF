@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Extra
+/cmake-build-release-msvc-32-bit/
+/cmake-build-debug-msvc-32-bit/
+/.idea/
