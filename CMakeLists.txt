@@ -36,19 +36,6 @@ target_link_libraries(DriverSF PUBLIC
         safetyhook
 )
 
-#target_compile_options(DriverSF PRIVATE
-#        /GL         # Link Time Code Generation
-#        /O1         # Small Code
-#        /GR-        # Disable RTTI
-#)
-#
-#target_link_options(DriverSF PRIVATE
-#        /LTCG       # Link Time Code Generation
-#        /OPT:REF    # Remove unreferenced functions
-#        /OPT:ICF    # Merge indentical functions
-#        /DEBUG:NONE # No debug info
-#)
-
 set_target_properties(DriverSF PROPERTIES
         OUTPUT_NAME "DriverSF"
         PREFIX ""
