@@ -49,7 +49,7 @@ globalMenus["Pause"]["mediaVersion"] = nil
 globalMenus["Pause"]["title"] = "/Dev"
 globalMenus["Main"]["mediaVersion"] = "Media version: " .. Network.getVersionString()
 
-local CustomMenu = {}								-- Sets up custom menu
+CustomMenu = {}								        -- Sets up custom menu
 table.insert(CustomMenu, {
   name = "Back",
   action = changePauseMenu("Main")

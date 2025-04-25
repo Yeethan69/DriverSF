@@ -1,5 +1,3 @@
-local CustomMenu = {}
-
 -- =========================================================================================
 --			Basic format for addng to the custom menu
 -- =========================================================================================
@@ -62,6 +60,7 @@ table.insert(NitroMenu, {
       for k, v in pairs(NitroMenu) do
         if NitroMenu[k]["name"] == "Toggle Infinite Boost: off" then
           NitroMenu[k]["name"] = "Toggle Infinite Boost: on"
+          break
         end
       end
     elseif InfiniteBoost == true then
@@ -96,12 +95,5 @@ table.insert(CustomMenu, {
   action = changePauseMenu("Nitro Menu"),
   description = "View Nitro Hax"
 })
-
-table.insert(CustomMenu, {
-  name = "Back",
-  action = changePauseMenu("Main")
-})
-
-addPauseMenu("Custom", CustomMenu)
 
 print("======================================== Custom loaded ========================================")
