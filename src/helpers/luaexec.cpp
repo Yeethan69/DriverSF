@@ -50,6 +50,7 @@ namespace lua::exec {
             buffer = "";
             return true;
         }
+        return false;
     }
 
     void lua_game_running_hook_bootstrap(lua_State *L) {

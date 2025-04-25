@@ -16,8 +16,8 @@ namespace di::hooks {
             if (data[0].dwOfs == DIK_RALT) { // Hardoded to right alt key
                 if (data[0].dwData == 0x80 && lua::exec::execute == false) {
                     // Toggles the in game menu
-                    lua::exec::buffer = "if getUpvalueByName(originalClearPauseMenu, \"pauseMenuShown\") then clearPauseMenu() else TriggerPauseMenu() end";
-                    lua::exec::execute = true;
+                    lua::exec::execute_lua_buffer(
+                        "if getUpvalueByName(originalClearPauseMenu, \"pauseMenuShown\") then clearPauseMenu() else TriggerPauseMenu() end");
                 }
             }
         }
@@ -29,12 +29,12 @@ namespace di::hooks {
         typedef HRESULT(__stdcall* t_direct_input8_create)(HINSTANCE, DWORD, REFIID, LPVOID*, LPUNKNOWN);
         auto DirectInput8Create = (t_direct_input8_create)GetProcAddress(GetModuleHandleA("dinput8.dll"), "DirectInput8Create");
 
-        // Create dummy device pointer
+        //Create dummy direct input pointer
         IDirectInput8* p_di = nullptr;
         HRESULT hr = DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8A,
             (LPVOID*)&p_di, nullptr);
         if (SUCCEEDED(hr)) {
-            // if the device is
+            // Create dummy device pointer
             IDirectInputDevice* pDIDevice = nullptr;
             hr = p_di->CreateDevice(GUID_SysKeyboard, (LPDIRECTINPUTDEVICE8A*)&pDIDevice, nullptr);
             if (SUCCEEDED(hr)) {
