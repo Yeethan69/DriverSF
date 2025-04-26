@@ -37,7 +37,7 @@ DWORD WINAPI hack_main(void* param) {
     logger::log_lua = true; // Set false to disable lua logging, can be annoying
 
     lua::hooks::dump_lua = true; // Set false to disable lua dumping - outputs to ./dumps/luac/
-    lua::overrides::config_menu_enable = false; // Set true to enable config menu on start - overrides save file
+    lua::overrides::config_menu_enable = true; // Set true to enable config menu on start - overrides save file
 
     MODULEINFO game_info = get_module_info("Driver.exe");
     const auto base_address = (uint32_t)game_info.lpBaseOfDll;
