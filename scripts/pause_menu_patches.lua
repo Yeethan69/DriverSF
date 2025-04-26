@@ -4,13 +4,17 @@ globalDrawMenu = getUpvalueByName(TriggerPauseMenu, "drawMenu")			-- make draw f
 originalClearPauseMenu = clearPauseMenu						-- patches: set active to main, enable game controls
 clearPauseMenu = function()
   originalClearPauseMenu()
-  setUpvalueByName(originalClearPauseMenu, "activeMenu", "Main")
+  if enableCustomMenus then
+    setUpvalueByName(originalClearPauseMenu, "activeMenu", "Main")
+  end
   controller.enableGameControls()
 end
 
 originalTriggerPauseMenu = TriggerPauseMenu					-- patches: set active to main, disable game controls
-TriggerPauseMenu = function()  
-  setUpvalueByName(originalClearPauseMenu, "activeMenu", "Main")
+TriggerPauseMenu = function()
+  if enableCustomMenus then
+    setUpvalueByName(originalClearPauseMenu, "activeMenu", "Main")
+  end
   originalTriggerPauseMenu()
   controller.disableGameControls()
 end
@@ -32,26 +36,3 @@ PauseMenuCallbacks["Menu_Select"]["JustPressed"][1] = customStepMenuSelect
 controlHandler:registerState(0, "Pause", PauseMenuCallbacks)
 controlHandler:registerState(1, "Pause", PauseMenuCallbacks)
 controlHandler:resetState("Pause")
-
-local Main = {}									-- option for default debug menu
-table.insert(Main, {
-      name = "Dev Menu",
-      action = changePauseMenu("Pause"),
-      info = "View Dev Menu"
-})
-table.insert(Main, {								-- option for custom menu
-      name = "Custom Menu",
-      action = changePauseMenu("Custom"),
-      info = "View Custom Menu"
-})
-addPauseMenu("Main", Main)							-- effectively make main the new default menu
-globalMenus["Pause"]["mediaVersion"] = nil
-globalMenus["Pause"]["title"] = "/Dev"
-globalMenus["Main"]["mediaVersion"] = "Media version: " .. Network.getVersionString()
-
-CustomMenu = {}								        -- Sets up custom menu
-table.insert(CustomMenu, {
-  name = "Back",
-  action = changePauseMenu("Main")
-})
-addPauseMenu("Custom", CustomMenu)
