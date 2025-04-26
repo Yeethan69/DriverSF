@@ -38,7 +38,7 @@ namespace lua::overrides {
         lua_lock(L);
         if (!chunk_name) chunk_name = "?";
         luaz_init_override(L, &z, reader, data);
-        int status = hooks::o_luad_protectedparser.call<int>(L, &z, chunk_name);
+        const int status = hooks::o_luad_protectedparser.call<int>(L, &z, chunk_name);
         lua_unlock(L);
         return status;
     }
@@ -94,7 +94,7 @@ namespace lua::overrides {
 
     int development_erase_text_override(lua_State* L) {
         std::lock_guard lock(dev_text_mutex);
-        int index = std::stoi(proxies::gamelua_tolstring(L, 2, NULL));
+        const int index = std::stoi(proxies::gamelua_tolstring(L, 2, NULL));
         auto it = dev_texts.find(index);
         if (it != dev_texts.end()) {
             dev_texts.erase(it);
@@ -112,7 +112,7 @@ namespace lua::overrides {
         // 6. scale (number)
         // 7. unknown, always -1, ignore
         std::lock_guard lock(dev_text_mutex);
-        int n = proxies::gamelua_gettop(L);
+        const int n = proxies::gamelua_gettop(L);
 
         // Check if the number of arguments is correct
         if (n != 7) {
@@ -127,7 +127,7 @@ namespace lua::overrides {
         }
 
         dev_text text = {};
-        int index = std::stoi(proxies::gamelua_tolstring(L, 2, nullptr));
+        const int index = std::stoi(proxies::gamelua_tolstring(L, 2, nullptr));
         text.text = std::string(proxies::gamelua_tolstring(L, 3, NULL));
         text.position = *(vec2*) proxies::gamelua_touserdata(L, 4);
         text.colour = *(vec4*) proxies::gamelua_touserdata(L, 5);

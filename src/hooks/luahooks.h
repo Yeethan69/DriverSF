@@ -15,7 +15,7 @@ namespace lua::hooks {
     inline SafetyHookInline o_luad_protectedparser{};
 
     // Install and uninstall hooks
-    void install_hooks(uint32_t base_address);
+    void install_hooks(const uint32_t base_address);
     void uninstall_hooks();
 } // lua
 

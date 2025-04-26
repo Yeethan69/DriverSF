@@ -16,8 +16,8 @@ namespace lua::exec {
     inline extern lua_State* p_game_state = nullptr;
 
     // Functions
-    void execute_lua_buffer(std::string input);
-    void execute_lua_file(std::string path);
+    void execute_lua_buffer(const std::string& input);
+    void execute_lua_file(const std::string& path);
     bool execute_lua(lua_State* L, const char* chunk_name = "load buffer");
 
     void lua_game_running_hook_bootstrap(lua_State *L);

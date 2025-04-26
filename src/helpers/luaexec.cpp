@@ -14,13 +14,13 @@ namespace lua::exec {
     bool game_running_hook_complete = false;
 
     // Functions
-    void execute_lua_buffer(std::string input) {
+    void execute_lua_buffer(const std::string& input) {
         // Sets buffer to custom code
         buffer = input;
         execute = true;
     }
 
-    void execute_lua_file(std::string path) {
+    void execute_lua_file(const std::string& path) {
         // Sets buffer in order to open script in gamedir\custom\path
         std::string fullpath = R"(..\\..\\scripts\\)" + path;
         buffer = "debugOpen(\"" + fullpath + "\")\n";
@@ -30,7 +30,7 @@ namespace lua::exec {
     bool execute_lua(lua_State *L, const char *chunk_name) {
         if (execute) {
             execute = false;
-            int top = proxies::gamelua_gettop(L); // Save stack top for restoration
+            const int top = proxies::gamelua_gettop(L); // Save stack top for restoration
 
             int status = overrides::lual_loadbuffer_override(L, buffer.c_str(), buffer.size(), chunk_name);
             if (!helpers::check_lua_status(L, status, chunk_name)) {
