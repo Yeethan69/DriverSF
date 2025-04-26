@@ -27,7 +27,7 @@ MODULEINFO get_module_info(const char* module)
     return module_info;
 }
 
-int hack_main() {
+DWORD WINAPI hack_main(void* param) {
     // Formatted quite poorly right now, using namespaces as opposed to classes, but that could be changed.
     // Was one big file, so first step in refactoring was to split it.
 
@@ -64,17 +64,17 @@ int hack_main() {
     }
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule,
-    const DWORD ul_reason_for_call,
-    LPVOID lpReserved) {
+BOOL APIENTRY DllMain(HMODULE hModule, const DWORD ul_reason_for_call, LPVOID lpReserved) {
     switch (ul_reason_for_call) {
         case DLL_PROCESS_ATTACH:
-            CreateThread(NULL,
+            CloseHandle(
+                CreateThread(NULL,
                 0,
-                (LPTHREAD_START_ROUTINE)hack_main,
+                hack_main,
                 NULL,
                 0,
-                NULL);
+                NULL)
+                );
             break;
         case DLL_THREAD_ATTACH:
         case DLL_THREAD_DETACH:
