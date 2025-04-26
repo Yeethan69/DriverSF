@@ -7,7 +7,7 @@
 #include <map>
 #include <shared_mutex>
 extern "C" {
-#include "../../lua-5.1.2/src/lstate.h"
+#include "lstate.h"
 }
 
 namespace lua::overrides {

@@ -1,14 +1,12 @@
 //
 // Created by ethan on 23/04/2025.
 //
-#include "luahooks.h"
-
 #include <filesystem>
 #include <fstream>
-
-#include "../helpers/luaexec.h"
-#include "../overrides/luaoverrides.h"
-#include "../logger.h"
+#include "luahooks.h"
+#include "luaexec.h"
+#include "luaoverrides.h"
+#include "logger.h"
 
 namespace lua::hooks {
 

@@ -2,8 +2,8 @@
 // Created by ethan on 23/04/2025.
 //
 #include "dihooks.h"
-#include "../../safetyhook/include/safetyhook.hpp"
-#include "../helpers/luaexec.h"
+#include "safetyhook.hpp"
+#include "luaexec.h"
 #include <dinput.h>
 
 namespace di::hooks {

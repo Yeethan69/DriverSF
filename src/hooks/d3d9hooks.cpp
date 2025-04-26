@@ -2,8 +2,8 @@
 // Created by ethan on 23/04/2025.
 //
 #include "d3d9hooks.h"
-#include "../../safetyhook/include/safetyhook.hpp"
-#include "../overrides/luaoverrides.h"
+#include "safetyhook.hpp"
+#include "luaoverrides.h"
 #include <d3dx9.h>
 
 namespace d3d9::hooks {

@@ -6,7 +6,7 @@
 #define LUAEXEC_H
 #include <string>
 extern "C" {
-#include "../../lua-5.1.2/src/lstate.h"
+#include "lstate.h"
 }
 
 namespace lua::exec {

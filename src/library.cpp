@@ -5,11 +5,11 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include "library.h"
 #include "logger.h"
-#include "helpers/luaexec.h"
-#include "proxies/luaproxies.h"
-#include "hooks/d3d9hooks.h"
-#include "hooks/dihooks.h"
-#include "hooks/luahooks.h"
+#include "luaexec.h"
+#include "luaproxies.h"
+#include "d3d9hooks.h"
+#include "dihooks.h"
+#include "luahooks.h"
 #include <windows.h>
 #include <psapi.h>
 #include <iostream>

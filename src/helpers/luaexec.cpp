@@ -3,10 +3,10 @@
 //
 #include "luaexec.h"
 #include "luahelpers.h"
-#include "../overrides/luaoverrides.h"
-#include "../hooks/luahooks.h"
-#include "../proxies/luaproxies.h"
-#include "../logger.h"
+#include "luaoverrides.h"
+#include "luahooks.h"
+#include "luaproxies.h"
+#include "logger.h"
 
 namespace lua::exec {
 

@@ -19,6 +19,7 @@ add_subdirectory(safetyhook)
 
 add_library(DriverSF SHARED
         src/library.cpp
+        src/logger.cpp
         src/hooks/d3d9hooks.cpp
         src/hooks/dihooks.cpp
         src/hooks/luahooks.cpp
@@ -26,8 +27,18 @@ add_library(DriverSF SHARED
         src/overrides/luaoverrides.cpp
         src/helpers/luaexec.cpp
         src/helpers/luahelpers.cpp
-        src/logger.cpp
 )
+
+# Stop the use of relative paths in includes
+target_include_directories(DriverSF PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/helpers
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/hooks
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/overrides
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/proxies
+        ${CMAKE_CURRENT_SOURCE_DIR}/lua-5.1.2/src
+)
+
 target_link_libraries(DriverSF PUBLIC
         d3d9
         d3dx9
@@ -35,6 +46,7 @@ target_link_libraries(DriverSF PUBLIC
         dxguid
         safetyhook
 )
+
 
 set_target_properties(DriverSF PROPERTIES
         OUTPUT_NAME "DriverSF"

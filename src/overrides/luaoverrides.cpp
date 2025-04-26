@@ -2,11 +2,11 @@
 // Created by ethan on 24/04/2025.
 //
 #include "luaoverrides.h"
-#include "../logger.h"
-#include "../helpers/luaexec.h"
-#include "../helpers/luahelpers.h"
-#include "../proxies/luaproxies.h"
-#include "../hooks/luahooks.h"
+#include "logger.h"
+#include "luaexec.h"
+#include "luahelpers.h"
+#include "luaproxies.h"
+#include "luahooks.h"
 
 namespace lua::overrides {
 

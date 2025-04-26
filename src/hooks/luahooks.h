@@ -4,7 +4,7 @@
 #pragma once
 #ifndef LUA_H
 #define LUA_H
-#include "../../safetyhook/include/safetyhook.hpp"
+#include "safetyhook.hpp"
 namespace lua::hooks {
 
     // Vars

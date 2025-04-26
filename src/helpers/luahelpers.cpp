@@ -2,8 +2,8 @@
 // Created by ethan on 24/04/2025.
 //
 #include "luahelpers.h"
-#include "../proxies/luaproxies.h"
-#include "../logger.h"
+#include "luaproxies.h"
+#include "logger.h"
 
 namespace lua::helpers {
     int absindex(lua_State *L, int index) {
