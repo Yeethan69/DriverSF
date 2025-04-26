@@ -3,7 +3,7 @@
 - Log lua print statements.
 - Enable custom lua loading in gamedir/scripts.
 - Dump luac files from game to gamedir/dumps/luac.
-- Override lua loading with decompiled lua files from gamedir/dumps/lua (decompile yourself - unluac works).
+- Override lua loading with decompiled lua files from gamedir/dumps/lua (decompile yourself - [unluac](https://sourceforge.net/projects/unluac/) works).
 - Dev/Debug menus re-enabled (config on start and in game dev menu - patched to enable use for custom menus).
 
 ## Building
@@ -17,6 +17,10 @@ Rename dll to "UMPDC.dll", other names may also work.
 Copy scripts folder to game directory.
 
 Run game.
+
+***Right Alt key to toggle in game menu***
+
+(enableCustomMenus = true in scripts/load.lua to disable custom menus, and return in game menu to default)
 
 ## TODO
 - [ ] Create loader to not rely on load order hijacking
