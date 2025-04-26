@@ -69,21 +69,21 @@ namespace d3d9::hooks {
         HWND h_dest_window_override,
         const RGNDATA* p_dirty_region) {
         if (p_device == p_my_device) {
-            IDirect3DSurface9* pBackBuffer = nullptr;
-            HRESULT hr = p_device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
+            IDirect3DSurface9* p_back_buffer = nullptr;
+            HRESULT hr = p_device->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &p_back_buffer);
 
             UINT width = 0;
             UINT height = 0;
 
             // get window size to scale the positioning
-            if (SUCCEEDED(hr) && pBackBuffer != nullptr) {
+            if (SUCCEEDED(hr) && p_back_buffer != nullptr) {
                 D3DSURFACE_DESC surface_desc;
-                hr = pBackBuffer->GetDesc(&surface_desc);
+                hr = p_back_buffer->GetDesc(&surface_desc);
                 if (SUCCEEDED(hr)) {
                     width = surface_desc.Width;
                     height = surface_desc.Height;
                 }
-                pBackBuffer->Release();
+                p_back_buffer->Release();
             }
 
             // acquire the lock to read the text
@@ -106,15 +106,15 @@ namespace d3d9::hooks {
         const auto direct_3d_create9 = (t_direct_3d_create9)GetProcAddress(GetModuleHandleA("d3d9.dll"), "Direct3DCreate9");
 
         // Create dummy device pointer
-        IDirect3D9* d3d9 = direct_3d_create9(D3D_SDK_VERSION);
-        IDirect3DDevice9* d3d9device;
+        IDirect3D9* p_d3d9 = direct_3d_create9(D3D_SDK_VERSION);
+        IDirect3DDevice9* p_d3d9_device;
 
         // Get the window handle
         HWND h_wnd;
         EnumWindows([](HWND hwnd, LPARAM lParam) -> BOOL {
-            DWORD processId;
-            GetWindowThreadProcessId(hwnd, &processId);
-            if (processId == GetCurrentProcessId()) { // Check if the window belongs to the current process
+            DWORD process_id;
+            GetWindowThreadProcessId(hwnd, &process_id);
+            if (process_id == GetCurrentProcessId()) { // Check if the window belongs to the current process
                 *(HWND*)lParam = hwnd;
                 return FALSE; // Stop enumerating windows
             }
@@ -128,17 +128,17 @@ namespace d3d9::hooks {
         params.hDeviceWindow = h_wnd;
 
         // Create the device
-        auto hr = d3d9->CreateDevice(0, D3DDEVTYPE_HAL, nullptr,
-            D3DCREATE_SOFTWARE_VERTEXPROCESSING, &params, &d3d9device);
+        auto hr = p_d3d9->CreateDevice(0, D3DDEVTYPE_HAL, nullptr,
+            D3DCREATE_SOFTWARE_VERTEXPROCESSING, &params, &p_d3d9_device);
         if (SUCCEEDED(hr)) {
             // If dummy device creation is successful, create hooks using the addresses in the vtable
-            o_end_scene = safetyhook::create_inline((*(DWORD**)d3d9device)[42], end_scene_hook);
-            o_present = safetyhook::create_inline((*(DWORD**)d3d9device)[17], present_hook);
+            o_end_scene = safetyhook::create_inline((*(DWORD**)p_d3d9_device)[42], end_scene_hook);
+            o_present = safetyhook::create_inline((*(DWORD**)p_d3d9_device)[17], present_hook);
         }
 
         // Once hooks are installed, release the dummy devices
-        d3d9device->Release();
-        d3d9->Release();
+        p_d3d9_device->Release();
+        p_d3d9->Release();
     }
 
     void uninstall_hooks() {

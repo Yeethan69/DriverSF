@@ -27,20 +27,20 @@ namespace di::hooks {
     void install_hooks() {
         // Get address of DirectInput8Create
         typedef HRESULT(__stdcall* t_direct_input8_create)(HINSTANCE, DWORD, REFIID, LPVOID*, LPUNKNOWN);
-        auto DirectInput8Create = (t_direct_input8_create)GetProcAddress(GetModuleHandleA("dinput8.dll"), "DirectInput8Create");
+        const auto direct_input8_create = (t_direct_input8_create)GetProcAddress(GetModuleHandleA("dinput8.dll"), "DirectInput8Create");
 
         //Create dummy direct input pointer
         IDirectInput8* p_di = nullptr;
-        HRESULT hr = DirectInput8Create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8A,
+        HRESULT hr = direct_input8_create(GetModuleHandle(nullptr), DIRECTINPUT_VERSION, IID_IDirectInput8A,
             (LPVOID*)&p_di, nullptr);
         if (SUCCEEDED(hr)) {
             // Create dummy device pointer
-            IDirectInputDevice* pDIDevice = nullptr;
-            hr = p_di->CreateDevice(GUID_SysKeyboard, (LPDIRECTINPUTDEVICE8A*)&pDIDevice, nullptr);
+            IDirectInputDevice* p_di_device = nullptr;
+            hr = p_di->CreateDevice(GUID_SysKeyboard, (LPDIRECTINPUTDEVICE8A*)&p_di_device, nullptr);
             if (SUCCEEDED(hr)) {
-                o_get_device_data = safetyhook::create_inline((*(DWORD**)pDIDevice)[10], get_device_data_hook);
+                o_get_device_data = safetyhook::create_inline((*(DWORD**)p_di_device)[10], get_device_data_hook);
             }
-            pDIDevice->Release();
+            p_di_device->Release();
         }
         p_di->Release();
     }

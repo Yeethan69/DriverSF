@@ -18,13 +18,13 @@
 
 MODULEINFO get_module_info(const char* module)
 {
-    MODULEINFO MI = { nullptr };
-    const HMODULE HM = GetModuleHandle(module);
-    if (HM == nullptr)
-        return MI;
+    MODULEINFO module_info = { nullptr };
+    const HMODULE module_handle = GetModuleHandle(module);
+    if (module_handle == nullptr)
+        return module_info;
 
-    GetModuleInformation(GetCurrentProcess(), HM, &MI, sizeof(MODULEINFO));
-    return MI;
+    GetModuleInformation(GetCurrentProcess(), module_handle, &module_info, sizeof(MODULEINFO));
+    return module_info;
 }
 
 int hack_main() {
@@ -39,8 +39,8 @@ int hack_main() {
     lua::hooks::dump_lua = true; // Set false to disable lua dumping - outputs to ./dumps/luac/
     lua::overrides::config_menu_enable = false; // Set true to enable config menu on start - overrides save file
 
-    MODULEINFO gameInfo = get_module_info("Driver.exe");
-    const auto base_address = (uint32_t)gameInfo.lpBaseOfDll;
+    MODULEINFO game_info = get_module_info("Driver.exe");
+    const auto base_address = (uint32_t)game_info.lpBaseOfDll;
 
     // Hardcoded, can just be set on first call, game only uses one lua thread/state
     // Also, not really used at all
