@@ -57,7 +57,7 @@ namespace d3d9::hooks {
         if (first_call) {
             D3DXCreateFont(p_device, 40, 0, FW_BOLD, 1, FALSE, DEFAULT_CHARSET,
                 OUT_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH | FF_DONTCARE,
-                "Product Sans", &p_font);
+                "Courier New", &p_font);
             D3DXCreateSprite(p_device, &p_sprite);
             first_call = false;
             p_my_device = p_device;
